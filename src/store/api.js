@@ -1,6 +1,6 @@
 /// mock data as if it came from api
 
-export const mockComments = [
+const mockComments = [
   {
     id: 1,
     name: "Eliseo Gardner",
@@ -50,3 +50,35 @@ export const mockComments = [
       "est natus enim nihil est dolore omnis voluptatem numquam\net omnis occaecati quod ullam at\nvoluptatem error expedita pariatur\nnihil sint nostrum voluptatem reiciendis et",
   },
 ];
+
+const URL = "https://jsonplaceholder.typicode.com/comments";
+
+/*
+  used to sync mock comments,API comments and created comment IDs
+  since mock and API comments can have the same IDs causing issues when rendering
+*/
+let commentId = 0;
+
+//API communication functions
+
+//obtains comments from API, combine with mock and recreate all comments IDs to not have duplicates
+const getComments = async () => {
+  const resp = await fetch(URL);
+  if (!resp.ok) {
+    throw Error("Failed to fetch comments");
+  }
+  //keep data field between API and mock consistent
+  return [...mockComments, ...(await resp.json())].map((comment) => ({
+    ...comment,
+    body: comment.body || comment.comment,
+    id: commentId++,
+  }));
+};
+
+// new comment assigned ID for react key
+const addComment = (newComment) => {
+  newComment.id = commentId++;
+  return newComment;
+};
+
+export { addComment, getComments, mockComments };

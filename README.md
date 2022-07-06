@@ -1,32 +1,35 @@
-
 # AVB Frontend Assesment
 
 ## User Story
 
 As a user, I would like to be able to read a list of comments, add a comment, and see a list of the top 3 commenters.
 
-
 ### Tasks
 
 > Please add comments to help explain decisions and add a summary to the README
 
-1) Use Material-UI theme for custom color scheme(primary and secondary colors)
-2) Display list of comments
-   1) Comment UI should consist of avatar(first initial or first + last initial), name, and comment
-   2) `store/api` has mock comments
-   3) Extra: fetch from API to display initial comments instead of mock comments
-3) Facilitate adding a comment via modal with input fields(name and comment), and submit button
-4) Display a list of top 3 commenters
-   1) Ui should consist of avatar(same as above) name, and comment count
-   2) Should be listed in descending order of comment count
+1. Use Material-UI theme for custom color scheme(primary and secondary colors)
+2. Display list of comments
+   1. Comment UI should consist of avatar(first initial or first + last initial), name, and comment
+   2. `store/api` has mock comments
+   3. Extra: fetch from API to display initial comments instead of mock comments
+3. Facilitate adding a comment via modal with input fields(name and comment), and submit button
+4. Display a list of top 3 commenters
+   1. Ui should consist of avatar(same as above) name, and comment count
+   2. Should be listed in descending order of comment count
 
+## Summary
+
+Started by creating API functions and adding fields/actions/selectors for redux. Memoized getTopCommentors selector that generates the top 3 commentors from the array of comments. Broke the UI down to 2 major display components `TopCommentors` and `CommentsList` to display the data fields from the API. These components only display on successful loading. `CommentsList` breaks down further to list of `Comment` component which displays the actual comment data. `TopCommentors` displays top 3 commentors in list descending order left to right.
+Once data is being displayed, edited `CommentModal` to add textfields, error checking and ability to add comments to list. To create consistent styling between the 2 sections created `Section` component. `ErrorScreen` handles possible error that can happen from API and allow retries. Tested performance with react profiler which led to memoizing the `Comment` component to speed up the app.
+
+#### Components
 
 ### Useful Links
 
-* https://v4.mui.com/
-* https://redux-toolkit.js.org/
-* https://jsonplaceholder.typicode.com/comments
-
+- https://v4.mui.com/
+- https://redux-toolkit.js.org/
+- https://jsonplaceholder.typicode.com/comments
 
 # Getting Started with Create React App
 
